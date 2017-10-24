@@ -9,12 +9,18 @@ describe('Automation Web flow', function () {
         browser.waitForAngularEnabled(false); 
         browser.get(homePage.URL);
         homePage.contactUsLink.click();
-        //expect(homePage.cartLabel.getText()).toEqual("Cart (empty)");
     });
-    it('Check if 3 elements are present?', function(){
-
-        expect(contactUs.)
-
+    it('Check if Customer Service Label is present?', function(){
+        contactUs.customerServiceLabel.isPresent().then(function(text){
+            console.log(text);
+        })
+        expect(contactUs.customerServiceLabel.isPresent()).toBe(true);
+            })
+    it('Check if Subject Heading Dropdown is present?', function(){
+        expect(contactUs.subjectHeadingDropdown.isPresent()).toBe(true);
+    })
+    it('Check if Submit Button is present?', function(){
+        expect(contactUs.submitButton.isPresent()).toBe(true);
     })
 
 });
