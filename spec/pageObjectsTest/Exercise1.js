@@ -2,24 +2,25 @@ var HomePage = require(pageObjectDir + "/homePage.js");
 var WomenPage = require(pageObjectDir + "/womenPage.js");
 var WomenTopsPage = require(pageObjectDir + "/womenTopsPage.js");
 var FadedShortSleevePage = require(pageObjectDir + "/fadedShortSleevePage.js");
+var AddedProductPopUp = require(pageObjectDir + "/addedProductPopUp.js");
+var CartPage = require(pageObjectDir + "/cartPage.js");
 
 var homePage = new HomePage();
 var womenPage = new WomenPage();
 var womenTopsPage = new WomenTopsPage();
 var fadedShortSleevePage = new FadedShortSleevePage();
+var addedProductPopUp = new AddedProductPopUp();
+var cartPage = new CartPage();
 
 beforeAll(function () {
 
     browser.get(homePage.URL);
 });
-
+var productDescription = '';
 describe('Adding product to Cart flow.', function () {
-    var pirce;
+
     it('Should Home Page be loaded', function () {
-        // browser.getTitle().then(function(text){
-        //     console.log(text+1);
-        //     expect(text).toEqual('My Store');
-        // });
+       // homePage.isLoaded();
         expect(browser.getTitle()).toEqual('My Store');
     });
 
@@ -48,32 +49,39 @@ describe('Adding product to Cart flow.', function () {
         expect(fadedShortSleevePage.isConditionNew()).toBeTruthy();
     })
 
-    it('Should chosen product be added to cart', function () {
+    it('Should add item and go to Cart', function () {
+
         fadedShortSleevePage.clickSizeDropDown().then(function () {
             fadedShortSleevePage.clickMsize();
         })
-        fadedShortSleevePage.clickAddToCartButton();
+        fadedShortSleevePage.clickAddToCartButton(); 
         browser.wait(function () {
             return fadedShortSleevePage.popUpImage.isPresent()
         }).then(function () {
-            fadedShortSleevePage.closeButtonPopUp.click();
+            addedProductPopUp.clickcloseButtonPopUp();
+            addedProductPopUp.getProductDescription().then(function(text){
+                 popUpDescription =text;
+                 console.log(popUpDescription);
+            })
+           // popUpDescription = addedProductPopUp.productDescription.getText();    
         })
-
-
-        //fadedShortSleevePage.clickCartButton();
-
-        browser.sleep(5000);
-        // fadedShortSleevePage.clickAddToCartButton().then(function(){
-        //     fadedShortSleevePage.clickCartButton()
-        // });
-
-        //fadedShortSleevePage.clickCartButton();
-
-        // fadedShortSleevePage.getPriceFromProductPage().then(function(text){
-        //     price=text;
-        // });
-        //console.log(price);
+        //console.log(popUpDescription);
+        fadedShortSleevePage.clickCartButton();
+       expect(browser.getTitle()).toEqual('Order - My Store');
 
     })
 
-});
+    it('Should Correct Item be added - checking description', function () {
+        cartPage.getProductDescription().then(function(text){
+            console.log(text);
+            expect(text).toEqual('Faded Short Sleeve T-shirts')
+       })
+    })
+
+    it('Should Correct Item be added - checking price', function () {
+        cartPage.getPrice().then(function(text){
+            console.log(text);
+            expect(text).toEqual('$16.51')
+       })
+    })
+});// browser.sleep(2000);

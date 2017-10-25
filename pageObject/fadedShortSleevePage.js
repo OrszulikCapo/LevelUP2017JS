@@ -8,6 +8,8 @@ var FadedShortSleevePage = function FadedShortSleevePage() {
     this.price = element(By.css('#our_price_display'));
     this.contactUsLink = element(By.css('#contact-link'));
     this.closeButtonPopUp = element(By.css('#layer_cart > div.clearfix > div.layer_cart_product.col-xs-12.col-md-6 > span'));
+    this.productDescriptionPopUp = element(By.css('#layer_cart > div.clearfix > div.layer_cart_product.col-xs-12.col-md-6 > span'));
+    this.selectorProductDescription = element(By.css('#center_column > div > div > div.pb-center-column.col-xs-12.col-sm-4 > h1'));
 
     // this.changeSizeToM = function(){
     //     dropdownSize = element(By.css('#group_1'));
@@ -39,44 +41,36 @@ FadedShortSleevePage.prototype.isConditionNew = function () {
     return new Promise(function (resolve) {
         condition = element(By.css('#product_condition > span'));
         condition.getText().then(function (text) {
-            console.log(text);
             resolve(text == 'New');
         })
     })
 }
 
-FadedShortSleevePage.prototype.waitForImage = function(){
+FadedShortSleevePage.prototype.waitForImage = function () {
     var that = this;
     that.popUpImage.isPresent();
 }
 
-FadedShortSleevePage.prototype.clickCartButton = function(){
+FadedShortSleevePage.prototype.clickCartButton = function () {
     var that = this;
     that.cartButton.click();
 }
 
-FadedShortSleevePage.prototype.clickAddToCartButton = function(){
+FadedShortSleevePage.prototype.clickAddToCartButton = function () {
     var that = this;
-    // return new Promise(function (resolve){
-        that.addToCartButton.click();
-    //     resolve();
-    // });
+    that.addToCartButton.click();
 }
 
-FadedShortSleevePage.prototype.clickSizeDropDown = function(){
+FadedShortSleevePage.prototype.clickSizeDropDown = function () {
     var that = this;
-    return new Promise(function(resolve){
+    return new Promise(function (resolve) {
         that.dropdownSize.click();
         resolve();
     })
-
 }
 
-FadedShortSleevePage.prototype.clickMsize = function(){
+FadedShortSleevePage.prototype.clickMsize = function () {
     var that = this;
-    // return new Promise (function(resolve){
-        that.mSize.click();
-    //     resolve();
-    // })
-    
+    that.mSize.click();
 }
+
