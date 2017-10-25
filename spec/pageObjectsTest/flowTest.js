@@ -11,16 +11,16 @@ describe('Automation Web flow', function () {
         homePage.contactUsLink.click();
     });
     it('Check if Customer Service Label is present?', function(){
-        contactUs.customerServiceLabel.isPresent().then(function(text){
+        contactUs.customerServiceLabel.isDisplayed().then(function(text){
             console.log(text);
         })
-        expect(contactUs.customerServiceLabel.isPresent()).toBe(true);
+        expect(contactUs.customerServiceLabel.isDisplayed()).toBe(true);
             })
     it('Check if Subject Heading Dropdown is present?', function(){
-        expect(contactUs.subjectHeadingDropdown.isPresent()).toBe(true);
+        expect(contactUs.subjectHeadingDropdown.isDisplayed()).toBe(true);
     })
     it('Check if Submit Button is present?', function(){
-        expect(contactUs.submitButton.isPresent()).toBe(true);
+        expect(contactUs.submitButton.isDisplayed()).toBe(true);
     })
 
 });
