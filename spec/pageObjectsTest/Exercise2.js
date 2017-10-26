@@ -2,8 +2,8 @@ var HomePage = require(pageObjectDir + "/homePage.js");
 var homePage = new HomePage();
 var DressesPage = require(pageObjectDir + "/dressesPage.js");
 var dressesPage = new DressesPage();
-var FadedShortSleevePage = require(pageObjectDir + "/fadedShortSleevePage.js");
-var fadedShortSleevePage = new FadedShortSleevePage();
+var ProductPage = require(pageObjectDir + "/ProductPage.js");
+var ProductPage = new ProductPage();
 
 var data = {
     "Dress 1": {
@@ -33,13 +33,10 @@ var data = {
     },
 }
 
-beforeAll(function () {
-        browser.get(homePage.URL);
-});
-
 describe('Checking if all dresses opens and looks correctly', function () {
 
     it('Should Home Page be loaded', function () {
+        browser.get(homePage.URL);
         expect(browser.getTitle()).toEqual('My Store');
     });
     
@@ -51,12 +48,12 @@ describe('Checking if all dresses opens and looks correctly', function () {
     using(data, function (element) {
         it('Check if correct Dress is Loaded - checking Price', function () {
             dressesPage[element.dressLinkSelector].click();
-            fadedShortSleevePage.price.getText().then(function(text){
+            ProductPage.price.getText().then(function(text){
                 expect(element.price).toEqual(text);
             })
         })
         it('Check if correct Dress is Loaded - checking Description', function () {
-            fadedShortSleevePage.selectorProductDescription.getText().then(function(text){
+            ProductPage.selectorProductDescription.getText().then(function(text){
                 expect(element.description).toEqual(text);
             })
         })    

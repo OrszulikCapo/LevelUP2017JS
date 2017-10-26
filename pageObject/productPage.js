@@ -1,4 +1,4 @@
-var FadedShortSleevePage = function FadedShortSleevePage() {
+var ProductPage = function ProductPage() {
     this.URL = 'http://automationpractice.com/index.php?id_category=4&controller=category';
     this.addToCartButton = element(By.css('#add_to_cart > button > span'));
     this.popUpImage = element(By.css('#layer_cart > div.clearfix > div.layer_cart_product.col-xs-12.col-md-6 > div.product-image-container.layer_cart_img > img'));
@@ -10,25 +10,11 @@ var FadedShortSleevePage = function FadedShortSleevePage() {
     this.closeButtonPopUp = element(By.css('#layer_cart > div.clearfix > div.layer_cart_product.col-xs-12.col-md-6 > span'));
     this.productDescriptionPopUp = element(By.css('#layer_cart > div.clearfix > div.layer_cart_product.col-xs-12.col-md-6 > span'));
     this.selectorProductDescription = element(By.css('#center_column > div > div > div.pb-center-column.col-xs-12.col-sm-4 > h1'));
-
-    // this.changeSizeToM = function(){
-    //     dropdownSize = element(By.css('#group_1'));
-    //     mSize = element(By.css('#group_1 > option:nth-child(2)'));
-    //     dropdownSize.click();
-    //     mSize.click();
-    // }
-
-    // this.getPriceFromProductPage = function(){
-    //     price = element(By.css('#our_price_display'));
-    //     return price.getText();
-    // }
 }
 
-module.exports = FadedShortSleevePage;
+module.exports = ProductPage;
 
-
-
-FadedShortSleevePage.prototype.isDescriptionLongerThan = function (number) {
+ProductPage.prototype.isDescriptionLongerThan = function (number) {
     return new Promise(function (resolve) {
         description = element(By.css('h1'));
         description.getText().then(function (text) {
@@ -37,7 +23,7 @@ FadedShortSleevePage.prototype.isDescriptionLongerThan = function (number) {
     })
 }
 
-FadedShortSleevePage.prototype.isConditionNew = function () {
+ProductPage.prototype.isConditionNew = function () {
     return new Promise(function (resolve) {
         condition = element(By.css('#product_condition > span'));
         condition.getText().then(function (text) {
@@ -46,22 +32,22 @@ FadedShortSleevePage.prototype.isConditionNew = function () {
     })
 }
 
-FadedShortSleevePage.prototype.waitForImage = function () {
+ProductPage.prototype.waitForImage = function () {
     var that = this;
     that.popUpImage.isPresent();
 }
 
-FadedShortSleevePage.prototype.clickCartButton = function () {
+ProductPage.prototype.clickCartButton = function () {
     var that = this;
     that.cartButton.click();
 }
 
-FadedShortSleevePage.prototype.clickAddToCartButton = function () {
+ProductPage.prototype.clickAddToCartButton = function () {
     var that = this;
     that.addToCartButton.click();
 }
 
-FadedShortSleevePage.prototype.clickSizeDropDown = function () {
+ProductPage.prototype.clickSizeDropDown = function () {
     var that = this;
     return new Promise(function (resolve) {
         that.dropdownSize.click();
@@ -69,7 +55,7 @@ FadedShortSleevePage.prototype.clickSizeDropDown = function () {
     })
 }
 
-FadedShortSleevePage.prototype.clickMsize = function () {
+ProductPage.prototype.clickMsize = function () {
     var that = this;
     that.mSize.click();
 }

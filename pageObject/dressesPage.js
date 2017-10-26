@@ -5,6 +5,7 @@ var DressesPage = function DressesPage() {
         this.dressThreeLinkSelector = element(By.css('#center_column > ul > li:nth-child(3) > div > div.right-block > h5 > a'));
         this.dressFourLinkSelector = element(By.css('#center_column > ul > li:nth-child(4) > div > div.right-block > h5 > a'));
         this.dressFiveLinkSelector = element(By.css('#center_column > ul > li:nth-child(5) > div > div.right-block > h5 > a'));
+        this.allDresses = element(By.css('[class="product_list grid row"] > li >div > div.right-block'));
 }
 
 module.exports = DressesPage;
