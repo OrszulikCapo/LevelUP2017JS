@@ -16,11 +16,11 @@ beforeAll(function () {
 
     browser.get(homePage.URL);
 });
-var productDescription = '';
+var popUpDescription;
+var popUpPrice;
 describe('Adding product to Cart flow.', function () {
 
     it('Should Home Page be loaded', function () {
-       // homePage.isLoaded();
         expect(browser.getTitle()).toEqual('My Store');
     });
 
@@ -54,34 +54,38 @@ describe('Adding product to Cart flow.', function () {
         fadedShortSleevePage.clickSizeDropDown().then(function () {
             fadedShortSleevePage.clickMsize();
         })
-        fadedShortSleevePage.clickAddToCartButton(); 
+        fadedShortSleevePage.clickAddToCartButton();
+        
         browser.wait(function () {
             return fadedShortSleevePage.popUpImage.isPresent()
         }).then(function () {
-            addedProductPopUp.clickcloseButtonPopUp();
-            addedProductPopUp.getProductDescription().then(function(text){
-                 popUpDescription =text;
-                 console.log(popUpDescription);
+            addedProductPopUp.getProductDescription().then(function (text) {
+                popUpDescription = text;
             })
-           // popUpDescription = addedProductPopUp.productDescription.getText();    
+            addedProductPopUp.getProductPrice().then(function (text) {
+                popUpPrice = text;
+            })
         })
-        //console.log(popUpDescription);
-        fadedShortSleevePage.clickCartButton();
-       expect(browser.getTitle()).toEqual('Order - My Store');
-
     })
 
+    it('Should close the pop up and go to Cart', function () {
+        addedProductPopUp.clickcloseButtonPopUp().then(function(){
+             var EC = protractor.ExpectedConditions;
+            browser.wait(EC.elementToBeClickable(fadedShortSleevePage.cartButton), 5000);
+            fadedShortSleevePage.clickCartButton();
+            expect(browser.getTitle()).toEqual('Order - My Store');          
+        })
+    })
+    
     it('Should Correct Item be added - checking description', function () {
-        cartPage.getProductDescription().then(function(text){
-            console.log(text);
-            expect(text).toEqual('Faded Short Sleeve T-shirts')
-       })
+        cartPage.getProductDescription().then(function (text) {
+            expect(text).toEqual(popUpDescription);
+        })
     })
 
     it('Should Correct Item be added - checking price', function () {
-        cartPage.getPrice().then(function(text){
-            console.log(text);
-            expect(text).toEqual('$16.51')
-       })
+        cartPage.getPrice().then(function (text) {
+            expect(text).toEqual(popUpPrice)
+        })
     })
 });// browser.sleep(2000);
